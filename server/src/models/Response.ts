@@ -1,10 +1,3 @@
-/**
- * README: Response Model
- * This file defines the schema and model for Form Responses.
- * A response stores answers submitted by users for a specific form.
- * Answers are stored as a map where keys are field IDs.
- */
-
 import mongoose, { Schema, Document, Types } from 'mongoose';
 
 export interface IResponse extends Document {

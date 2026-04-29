@@ -1,9 +1,3 @@
-/**
- * README: Response Controller
- * This controller handles form submissions and response retrieval.
- * It uses the validator utility to ensure data integrity before saving.
- */
-
 import { Request, Response, NextFunction } from 'express';
 import Form from '../models/Form';
 import ResponseModel from '../models/Response';
@@ -13,19 +7,16 @@ export const submitResponse = async (req: Request, res: Response, next: NextFunc
   try {
     const { formId, answers } = req.body;
 
-    // Find the form
     const form = await Form.findById(formId);
     if (!form) {
       return res.status(404).json({ success: false, message: 'Form not found' });
     }
 
-    // Validate answers
     const validation = validateResponse(form, answers);
     if (!validation.valid) {
       return res.status(400).json({ success: false, errors: validation.errors });
     }
 
-    // Save response
     const newResponse = new ResponseModel({
       formId,
       answers,

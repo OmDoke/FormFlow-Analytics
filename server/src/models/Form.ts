@@ -1,25 +1,18 @@
-/**
- * README: Form Model
- * This file defines the schema and model for Forms.
- * A form consists of multiple fields, each with a specific type and validation rules.
- * It also includes a unique shareableId for public access.
- */
-
 import mongoose, { Schema, Document } from 'mongoose';
 
 export interface IField {
-  id: string;           // uuid
+  id: string;
   label: string;
   type: 'text' | 'number' | 'select';
   required: boolean;
-  options?: string[];   // only for select type
+  options?: string[];
 }
 
 export interface IForm extends Document {
   title: string;
   description?: string;
   fields: IField[];
-  shareableId: string;  // uuid, unique, used in public URL
+  shareableId: string;
   createdAt: Date;
   updatedAt: Date;
 }

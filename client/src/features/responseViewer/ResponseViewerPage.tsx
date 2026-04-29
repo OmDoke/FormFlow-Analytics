@@ -45,7 +45,6 @@ const ResponseViewerPage: React.FC = () => {
     });
   };
 
-  // Memoize columns to prevent re-renders
   const columns = useMemo(() => {
     if (!form) return [];
     return form.fields.map(field => ({

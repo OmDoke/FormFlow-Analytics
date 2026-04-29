@@ -1,9 +1,3 @@
-/**
- * README: Form Controller
- * This controller handles CRUD operations for form templates.
- * It ensures proper validation and automatic ID generation.
- */
-
 import { Request, Response, NextFunction } from 'express';
 import { v4 as uuidv4 } from 'uuid';
 import Form from '../models/Form';
@@ -12,7 +6,6 @@ export const createForm = async (req: Request, res: Response, next: NextFunction
   try {
     const { title, description, fields } = req.body;
 
-    // Validation
     if (!title) {
       return res.status(400).json({ success: false, message: 'Title is required' });
     }
@@ -20,7 +13,6 @@ export const createForm = async (req: Request, res: Response, next: NextFunction
       return res.status(400).json({ success: false, message: 'At least one field is required' });
     }
 
-    // Validate fields
     for (const field of fields) {
       if (!field.label || !field.type) {
         return res.status(400).json({ success: false, message: 'Field label and type are required' });
@@ -31,7 +23,6 @@ export const createForm = async (req: Request, res: Response, next: NextFunction
       if (field.type === 'select' && (!Array.isArray(field.options) || field.options.length === 0)) {
         return res.status(400).json({ success: false, message: 'Select fields must have at least one option' });
       }
-      // Ensure field has an ID if not provided
       if (!field.id) {
         field.id = `f_${uuidv4().substring(0, 8)}`;
       }
